@@ -47,6 +47,9 @@ body{
     border: 2px solid var(--color-button);
     margin: 20px auto;
 }
+.time span{
+    font-size: 30px;
+}
 .box-container{
     display: flex;
     flex-wrap: wrap;
@@ -101,17 +104,23 @@ body{
     transform: rotateY(180deg);
     pointer-events: none;
 }
-.win{
+.win,.loser{
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 50%;
     height: 50%;
-    background-color: var(--color-button);
     color: white;
     font-size: 40px;
     justify-content: center;
     align-items: center;
     display: none;
+    text-align: center;
+}
+.win{
+background-color: var(--color-button);
+}
+.loser{
+    background-color: red;
 }

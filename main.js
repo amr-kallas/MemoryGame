@@ -1,12 +1,3 @@
-document.querySelector(".pop button").onclick = function () {
-  let doc = prompt("Enter Your Name");
-  document.querySelector(".pop").style.display = "none";
-  document.querySelector(".name span").innerHTML = doc;
-  if (doc == null || doc == "") {
-    document.querySelector(".name span").innerHTML = "Undefined";
-  }
-};
-
 let worng = document.querySelector(".wrong span");
 let boxContainer = document.querySelector(".box-container");
 let boxes = Array.from(boxContainer.children);
@@ -47,7 +38,6 @@ function fliped() {
       flip[1].classList.add("fliped");
       countGame++;
       boxContainer.style.pointerEvents = "auto";
-      console.log(countGame);
     } else {
       worng.innerHTML++;
       setTimeout(() => {
@@ -61,3 +51,44 @@ function fliped() {
     document.querySelector(".win").style.display = "flex";
   }
 }
+let timer = document.querySelector(".time span");
+let time = 1.5;
+let sec = time * 60;
+timer.innerHTML = `${Math.floor(time)}:${sec % 60}`;
+function countDown() {
+  sec--;
+  let min = sec / 60;
+  let second = sec % 60;
+  timer.innerHTML = `0${Math.floor(min)}:${
+    second < 10 ? `0${second}` : second
+  }`;
+}
+let lose = document.querySelector(".loser");
+
+document.querySelector(".pop button").onclick = function () {
+  let doc = prompt("Enter Your Name");
+  document.querySelector(".pop").style.display = "none";
+  document.querySelector(".name span").innerHTML = doc;
+  if (doc == null || doc == "") {
+    document.querySelector(".name span").innerHTML = "Undefined";
+  }
+  boxes.forEach((box) => {
+    box.classList.add("is-flip");
+  });
+  setTimeout(() => {
+    boxes.forEach((box) => {
+      box.classList.remove("is-flip");
+    });
+  }, 2000);
+  let count = setInterval(() => {
+    countDown();
+    if (sec == 0) {
+      clearInterval(count);
+      lose.style.display = "flex";
+      boxContainer.style.pointerEvents = "none";
+    }
+    if (countGame == boxes.length / 2) {
+      clearInterval(count);
+    }
+  }, 1000);
+};
